@@ -1,0 +1,12 @@
+FROM python:3.12-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+COPY app/ main.py db/ alembic.ini requirements.txt /app/
+
+RUN groupadd -r admin && useradd -r -g admin admin
+RUN chown -R admin:admin /app
+RUN chown -R admin:admin /app/entrypoint.sh
