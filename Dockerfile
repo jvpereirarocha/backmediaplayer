@@ -13,7 +13,7 @@ RUN groupadd -r admin && useradd -r -g admin admin
 RUN chown -R admin:admin /app/
 
 RUN apt-get update \
-    && apt-get install -y g++ gcc+ curl libpq-dev unixodbc unixodbc-dev \
+    && apt-get install -y g++ gcc curl make libpq-dev unixodbc unixodbc-dev \
     && rm -rf /var/lib/apt/lists/*
 
 HEALTHCHECK --interval=10s --timeout=5s \
