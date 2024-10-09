@@ -17,7 +17,7 @@ def set_response_after_request(response):
 
 
 @api.route("/health", methods=["GET"])
-def check_database_conneection():
+def check_database_connection():
     with Session() as session:
         try:
             session.execute(text("SELECT 1"))
