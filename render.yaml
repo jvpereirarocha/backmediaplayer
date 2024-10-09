@@ -1,0 +1,23 @@
+services:
+  - type: web
+    runtime: docker
+    name: api
+    repo: https://github.com/jvpereirarocha/backmediaplayer.git
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: DATABASE_URI
+        fromDatabase:
+          name: dbprod
+          property: connectionString
+      - key: SERVER_PORT
+        value: 80
+
+databases:
+  - name: dbprod
+    postgresMajorVersion: "16"
+    region: oregon
+    plan: free
+    databaseName: playmedia
+    user: admin
+    ipAllowList: []

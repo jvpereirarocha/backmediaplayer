@@ -1,4 +1,6 @@
 from flask import Blueprint, jsonify, request
+from db.session import Session
+from sqlalchemy import text
 
 
 api = Blueprint("media", __name__, url_prefix="/media")
@@ -12,6 +14,16 @@ def set_response_after_request(response):
     response.headers["Content-Type"] = "application/json"
     response.headers["X-Req-Origin"] = "backend"
     return response
+
+
+@api.route("/health", methods=["GET"])
+def check_database_conneection():
+    with Session() as session:
+        try:
+            session.execute(text("SELECT 1"))
+            return jsonify({"message": "Running"}), 200
+        except Exception as exc:
+            return jsonify({"error": f"Database error: {exc}"}), 500
 
 
 @api.route("/videos", methods=["GET"])
