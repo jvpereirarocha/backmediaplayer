@@ -6,7 +6,7 @@ EXPOSE 5000
 
 WORKDIR /app
 
-COPY app/ db/ alembic.ini config.py entrypoint.sh main.py requirements.txt /app/
+COPY . .
 RUN pip install -r requirements.txt
 
 RUN groupadd -r admin && useradd -r -g admin admin
