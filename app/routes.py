@@ -3,6 +3,7 @@ from app.response import GetAllVideosResponse
 from app.use_case import (
     build_embed_url,
     calculate_offset,
+    calculate_total_of_pages,
     extract_video_id_from_url,
     get_next_page,
     get_previous_page,
@@ -50,6 +51,7 @@ def get_all_videos():
     limit = int(query_params.get("itemsPerPage"))
     page = int(query_params.get("page"))
     offset = calculate_offset(page=page, items_per_page=limit)
+    total_of_items = 0
     with Session() as session:
         items = session.scalars(
             select(Media).limit(limit).offset(offset).order_by(Media.media_id)
@@ -62,13 +64,19 @@ def get_all_videos():
             }
             for item in items
         ]
+        total_of_items = session.query(Media).count()
+
+    total_of_pages = calculate_total_of_pages(
+        total_of_items=total_of_items, items_per_page=limit
+    )
 
     response = GetAllVideosResponse(
         items=all_items,
         items_per_page=limit,
+        total_of_pages=total_of_pages,
         page=page,
         prev_page=get_previous_page(page),
-        next_page=get_next_page(page),
+        next_page=get_next_page(current_page=page, total_of_pages=total_of_pages),
     )
     return jsonify({"success": response.get_response()}), HTTPStatus.OK
 

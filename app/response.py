@@ -14,12 +14,14 @@ class GetAllVideosResponse(Response):
         self,
         items: list[dict[str, str]],
         items_per_page: int,
+        total_of_pages: int,
         page: int,
         prev_page: int | None,
         next_page: int | None,
     ):
         self.items = items
         self.items_per_page = items_per_page
+        self.total_of_pages = total_of_pages
         self.page = page
         self.prev_page = prev_page
         self.next_page = next_page
@@ -34,8 +36,9 @@ class GetAllVideosResponse(Response):
                 }
                 for media in self.items
             ],
-            "items_per_page": self.items_per_page,
+            "itemsPerPage": self.items_per_page,
+            "totalOfPages": self.total_of_pages,
             "page": self.page,
-            "prev_page": self.prev_page,
-            "next_page": self.next_page,
+            "prevPage": self.prev_page,
+            "nextPage": self.next_page,
         }

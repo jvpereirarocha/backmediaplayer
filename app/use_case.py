@@ -11,6 +11,10 @@ def calculate_offset(page: int, items_per_page: int) -> int:
     return items_per_page * (page - 1)
 
 
+def calculate_total_of_pages(total_of_items: int, items_per_page: int) -> int:
+    return (total_of_items + items_per_page - 1) // items_per_page
+
+
 def youtube_url_is_valid(link: str) -> bool:
     valid_url = re.fullmatch(REGEX_YOUTUBE_URL_VALIDATION, link) is not None
     return valid_url
@@ -31,5 +35,8 @@ def get_previous_page(current_page: int) -> int | None:
     return current_page - 1
 
 
-def get_next_page(current_page: int) -> int | None:
-    return current_page + 1
+def get_next_page(current_page: int, total_of_pages: int) -> int | None:
+    if current_page < total_of_pages:
+        return current_page + 1
+
+    return None
