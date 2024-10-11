@@ -1,8 +1,8 @@
 import re
 from typing import Optional
 
-REGEX_YOUTUBE_URL_VALIDATION = r'^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$'
-REGEX_EXTRACT_VIDEO_ID = r'(?:https?://)?(?:www\.)?(?:youtube\.com/(?:[^/]+/[^/]+/|(?:v|e|embed|watch|shorts)/|.*[?&]v=)|youtu\.be/)([a-zA-Z0-9_-]{11})'
+REGEX_YOUTUBE_URL_VALIDATION = r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
+REGEX_EXTRACT_VIDEO_ID = r"(?:https?://)?(?:www\.)?(?:youtube\.com/(?:[^/]+/[^/]+/|(?:v|e|embed|watch|shorts)/|.*[?&]v=)|youtu\.be/)([a-zA-Z0-9_-]{11})"
 
 EMBED_URL_VIDEO_PATTERN = "https://www.youtube.com/embed"
 
