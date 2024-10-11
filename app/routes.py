@@ -73,6 +73,24 @@ def get_all_videos():
     return jsonify({"success": response.get_response()}), HTTPStatus.OK
 
 
+@api.route("/videos/<int:media_id>", methods=["GET"])
+def get_one_video(media_id):
+    with Session() as session:
+        video = session.scalar(select(Media).where(Media.media_id == media_id))
+        if not video:
+            return (
+                jsonify({"error": f"Vídeo de id {media_id} não encontrado!"}),
+                HTTPStatus.BAD_REQUEST,
+            )
+        item = {
+            "id": video.media_id,
+            "title": video.title,
+            "url": build_embed_url(video_id=video.url),
+        }
+
+    return jsonify({"success": item}), HTTPStatus.OK
+
+
 @api.route("/videos", methods=["POST"])
 def save_new_video():
     data = request.get_json()
@@ -205,6 +223,9 @@ def remove_all_videos():
         )
 
     with Session() as session:
-        session.query(Media).delete()
+        videos = session.scalars(select(Media))
+        for video in videos:
+            session.delete(video)
+        session.commit()
 
     return jsonify({}), HTTPStatus.NO_CONTENT
