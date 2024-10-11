@@ -1,0 +1,6 @@
+FLASK_ENV=development or production
+DATABASE_URI=postgresql+psycopg2://user:pass@host:port/dbname
+SERVER_PORT=your_port # 5000 recommended
+POSTGRES_USER=user
+POSTGRES_DB=dbname
+POSTGRES_PASSWORD=pass
