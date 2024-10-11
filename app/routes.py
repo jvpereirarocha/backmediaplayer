@@ -88,7 +88,7 @@ def get_one_video(media_id):
         if not video:
             return (
                 jsonify({"error": f"Vídeo de id {media_id} não encontrado!"}),
-                HTTPStatus.BAD_REQUEST,
+                HTTPStatus.NOT_FOUND,
             )
         item = {
             "id": video.media_id,
